@@ -25,10 +25,25 @@ export function verifyTokenAndAuthorization(
 ) {
   verifyToken(req, res, () => {
     //@ts-ignore
-    if (req.user.id === req.params.id || req.user.isAdmin) {
+    if (req.user.id === req.params.id) {
       next();
     } else {
-      return res.status(403).json("Unauthorized!");
+      return res.status(403).json("Você não tem permissão!!");
+    }
+  });
+}
+
+export function verifyTokenAndAdmin(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  verifyToken(req, res, () => {
+    //@ts-ignore
+    if (req.user.isAdmin) {
+      next();
+    } else {
+      return res.status(403).json("Você não tem permissão!");
     }
   });
 }
