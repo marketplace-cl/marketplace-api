@@ -31,7 +31,7 @@ router.delete(
 );
 router.get(
   BASE_URL + "/users/me/:id",
-  verifyTokenAndAuthorization,
+  // verifyTokenAndAuthorization,
   UsersController.getCurrentUser
 );
 
