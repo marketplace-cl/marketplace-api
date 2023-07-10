@@ -34,7 +34,9 @@ async function login(req: Request, res: Response) {
       const originalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
 
       if (originalPassword !== req.body.password) {
-        return res.status(401).json({ message: "Wrong credentials!" });
+        return res
+          .status(401)
+          .json({ message: "Wrong credentials!", success: false });
       }
 
       const accessToken = jwt.sign(
@@ -49,12 +51,13 @@ async function login(req: Request, res: Response) {
       );
       //@ts-ignore
       const { password, ...others } = userFind._doc;
-      res.status(200).json({ data: others, accessToken });
+      console.log(others);
+      res.status(200).json({ data: others, accessToken, success: true });
     } else {
-      res.status(401).json("User not found!");
+      res.status(401).json({ message: "User not found!", success: false });
     }
   } catch (error) {
-    res.status(500).json(error);
+    res.status(500).json({ success: false, error });
   }
 }
 

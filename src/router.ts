@@ -8,6 +8,8 @@ import {
 import UsersController from "./app/controllers/UsersController";
 import ProductsController from "./app/controllers/ProductsController";
 import CategoriesController from "./app/controllers/CategoriesController";
+import PaymentController from "./app/controllers/PaymentController";
+import DeliveryController from "./app/controllers/DeliveryController";
 
 dotenv.config();
 
@@ -45,3 +47,15 @@ router.post(
 
 // Categories
 router.get(BASE_URL + "/categories", CategoriesController.getAllCategories);
+
+// Payment method
+router.post(
+  BASE_URL + "/checkout/create-payment-intent",
+  PaymentController.createPaymentIntent
+);
+
+// Delivery
+router.post(
+  BASE_URL + "/checkout/calculate-price-time",
+  DeliveryController.calculatePriceTime
+);
